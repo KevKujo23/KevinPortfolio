@@ -290,6 +290,41 @@
     </section>
   </main>
 
+  <div
+    class="project-lightbox"
+    id="project-image-lightbox"
+    hidden
+    aria-hidden="true"
+  >
+    <div class="project-lightbox-backdrop" data-lightbox-close></div>
+    <div
+      class="project-lightbox-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="project-lightbox-caption"
+    >
+      <button
+        type="button"
+        class="project-lightbox-close"
+        id="project-lightbox-close"
+        aria-label="Close image preview"
+      >
+        x
+      </button>
+      <div class="project-lightbox-media">
+        <img
+          id="project-lightbox-image"
+          src=""
+          alt=""
+          loading="eager"
+          width="1600"
+          height="1000"
+        >
+      </div>
+      <p class="project-lightbox-caption" id="project-lightbox-caption"></p>
+    </div>
+  </div>
+
   <footer class="site-footer">
     <div class="container footer-inner">
       <p>

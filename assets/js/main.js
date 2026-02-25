@@ -275,6 +275,15 @@
       return;
     }
 
+    var trigger = document.createElement("button");
+    trigger.type = "button";
+    trigger.className = "project-media-trigger";
+    trigger.setAttribute("aria-label", "Open larger preview for " + project.name);
+    trigger.setAttribute("data-project-image-trigger", "");
+    trigger.setAttribute("data-lightbox-src", project.image);
+    trigger.setAttribute("data-lightbox-alt", project.name + " screenshot preview");
+    trigger.setAttribute("data-lightbox-caption", project.name);
+
     var img = document.createElement("img");
     img.src = project.image;
     img.alt = project.name + " preview";
@@ -283,11 +292,17 @@
     img.height = 500;
 
     img.addEventListener("error", function () {
-      img.remove();
+      trigger.remove();
       mediaEl.appendChild(buildProjectPlaceholder(project.name));
     });
 
-    mediaEl.appendChild(img);
+    var hint = document.createElement("span");
+    hint.className = "project-media-zoom-hint";
+    hint.textContent = "Tap to zoom";
+
+    trigger.appendChild(img);
+    trigger.appendChild(hint);
+    mediaEl.appendChild(trigger);
   }
 
   function createExternalLink(label, href) {
@@ -620,6 +635,63 @@
     });
   }
 
+  function setupProjectImageLightbox() {
+    var lightbox = byId("project-image-lightbox");
+    var lightboxImage = byId("project-lightbox-image");
+    var lightboxCaption = byId("project-lightbox-caption");
+    var closeButton = byId("project-lightbox-close");
+    var grid = byId("projects-grid");
+
+    if (!lightbox || !lightboxImage || !lightboxCaption || !closeButton || !grid) {
+      return;
+    }
+
+    var lastTrigger = null;
+
+    function closeLightbox() {
+      lightbox.hidden = true;
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("lightbox-open");
+      if (lastTrigger && lastTrigger.isConnected) {
+        lastTrigger.focus();
+      }
+    }
+
+    function openLightbox(trigger) {
+      var src = trigger.getAttribute("data-lightbox-src");
+      if (!isNonEmptyString(src)) return;
+
+      lastTrigger = trigger;
+      lightboxImage.src = src;
+      lightboxImage.alt = trigger.getAttribute("data-lightbox-alt") || "Project screenshot preview";
+      lightboxCaption.textContent = trigger.getAttribute("data-lightbox-caption") || "";
+      lightbox.hidden = false;
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("lightbox-open");
+      closeButton.focus();
+    }
+
+    grid.addEventListener("click", function (event) {
+      var trigger = event.target.closest("[data-project-image-trigger]");
+      if (!trigger) return;
+      openLightbox(trigger);
+    });
+
+    lightbox.addEventListener("click", function (event) {
+      if (event.target.hasAttribute("data-lightbox-close")) {
+        closeLightbox();
+      }
+    });
+
+    closeButton.addEventListener("click", closeLightbox);
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !lightbox.hidden) {
+        closeLightbox();
+      }
+    });
+  }
+
   function populateStaticFields(data) {
     setText("brand-name", data.name || "Kevin Portfolio");
     setText(
@@ -710,6 +782,7 @@
     setupNav();
     setupActiveNav();
     setupRevealAnimations();
+    setupProjectImageLightbox();
 
     setText("hero-availability-pill", content.availabilityPill, "Open to opportunities");
     setText("footer-year", String(new Date().getFullYear()));

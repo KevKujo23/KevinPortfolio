@@ -102,7 +102,7 @@ window.PORTFOLIO_CONTENT = {
         "In-progress platform for real estate photography and documentation orders, helping agents, admins, and clients manage requests, order details, and sales-support workflows.",
       tech: ["WordPress", "PHP", "JavaScript", "HTML", "CSS", "SQL", "Aryeo API", "Square"],
       repoUrl: "",
-      liveUrl: "",
+      liveUrl: "https://showcaselistingsmedia.com/",
       image: "assets/img/RealEstate.png",
       status: "In Progress",
       highlights: [
