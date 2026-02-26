@@ -87,7 +87,7 @@ window.PORTFOLIO_CONTENT = {
         "Lead-generation and marketing WordPress website for Delloro Saulog Law Offices, built to present firm information clearly and support appointment inquiries.",
       tech: ["WordPress", "PHP", "JavaScript", "HTML", "CSS", "WooCommerce", "Bootstrap", "SEO"],
       repoUrl: "",
-      liveUrl: "",
+      liveUrl: "https://staging-7ee1-dellorosauloglaw.wpcomstaging.com/",
       image: "assets/img/DelloroWordpress.png",
       status: "Finished (Pending Launch)",
       highlights: [
