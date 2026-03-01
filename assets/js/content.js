@@ -19,7 +19,7 @@ window.PORTFOLIO_CONTENT = {
   links: {
     github: "https://github.com/KevKujo23",
     linkedin: "https://www.linkedin.com/in/kevinlapuz/",
-    resume: "https://drive.google.com/file/d/1uN2KKqeUDi5rGC0brQinaxzLlV-iKfrL/view?usp=drive_link"
+    resume: "https://drive.google.com/file/d/1hCbSZwj-ralt75ZKbHu0ERW9aNk38tGJ/view?usp=sharing"
   },
   about: [
     "I am a BS Information Technology student and web developer with around 2 years of experience building client websites, API-connected workflows, and business-focused web tools. I work across frontend and backend tasks, with a focus on shipping practical solutions that are usable and reliable.",
