@@ -54,15 +54,15 @@ window.PORTFOLIO_CONTENT = {
   skillGroups: [
     {
       label: "Languages & Core",
-      items: ["Java", "JavaScript", "PHP", "HTML", "CSS", "SQL"]
+      items: ["Java", "JavaScript", "PHP", "HTML", "CSS", "SQL", "Bootstrap", "React", "Node", "Next"]
     },
     {
       label: "Frameworks & Backend",
-      items: ["Spring Boot", "WordPress", "WooCommerce", "REST APIs", "PostgreSQL", "MySQL"]
+      items: ["Spring Boot", "WordPress", "WooCommerce", "REST APIs", "PostgreSQL", "MySQL", "Supabase"]
     },
     {
       label: "Workflow, Integrations & Delivery",
-      items: ["RBAC", "Reporting", "API Integrations", "Aryeo API", "Square", "SEO", "Git", "GitHub"]
+      items: ["RBAC", "Reporting", "API Integrations", "Aryeo API", "Square", "SEO", "Git", "GitHub", "AWS", "Figma"]
     }
   ],
   projects: [
