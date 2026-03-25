@@ -89,7 +89,7 @@ window.PORTFOLIO_CONTENT = {
       repoUrl: "",
       liveUrl: "https://dellorosaulog.com/",
       image: "assets/img/DelloroWordpress.png",
-      status: "Finished (Pending Launch)",
+      status: "Finished",
       highlights: [
         "Built and customized the WordPress theme through code (no Elementor) for a more tailored and maintainable site experience.",
         "Implemented a booking flow through WooCommerce, plus lead-generation pages designed for inquiries and appointments.",
@@ -104,7 +104,7 @@ window.PORTFOLIO_CONTENT = {
       repoUrl: "",
       liveUrl: "https://showcaselistingsmedia.com/",
       image: "assets/img/RealEstate.png",
-      status: "In Progress",
+      status: "Finished",
       highlights: [
         "Built ordering workflows for real estate photography and documentation requests with details capture for processing and follow-up.",
         "Integrated Aryeo to connect real estate media workflow requirements into the ordering process.",
