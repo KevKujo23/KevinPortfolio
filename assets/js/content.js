@@ -67,18 +67,48 @@ window.PORTFOLIO_CONTENT = {
   ],
   projects: [
     {
+      name: "Philippine Gammaknife Appointment Record System",
+      summary:
+        "Capstone web application built for a Philippine medical clinic to manage patient appointment records and communications. A React + Java Spring Boot system deployed on AWS, giving clinic staff a system of record and patients a portal for scheduling and follow-up.",
+      tech: ["React", "Java", "Spring Boot", "PostgreSQL", "AWS", "Facebook API", "POP3", "REST APIs"],
+      repoUrl: "",
+      liveUrl: "",
+      image: "assets/img/capstone.png",
+      status: "In Progress",
+      highlights: [
+        "Built as the BSIT graduation capstone — a full-stack appointment record system the clinic uses to track scheduling, patient history, and follow-up workflows.",
+        "Architected a React frontend with a Java Spring Boot backend on PostgreSQL, deployed end-to-end on AWS for production use.",
+        "Integrated the Facebook API for patient messaging and POP3 for inbound email handling, so appointment communications flow into one system."
+      ]
+    },
+    {
       name: "Law Office Logging and Billing System",
       summary:
-        "Internal web system for admins, lawyers, and staff to log activities, track work and contracts, and manage billing records with stronger transparency and revenue visibility.",
-      tech: ["Java", "Spring Boot", "PostgreSQL", "JavaScript", "HTML", "CSS"],
+        "Internal web platform for admins, lawyers, and staff at Delloro Saulog Law Offices to log activities, track work and contracts, and manage billing records — built to improve transparency and revenue visibility for the firm.",
+      tech: ["React", "Java", "Spring Boot", "Maven", "Supabase", "JavaScript", "HTML", "CSS"],
       repoUrl: "",
       liveUrl: "",
       image: "assets/img/DelloroActivity.png",
-      status: "In Progress (Internal)",
+      status: "Finished / Deployed",
       highlights: [
-        "Built the system solo, covering billing, reporting, activity logging, tracking workflows, and role-based access control (RBAC).",
-        "Implemented activity and billing tracking to reduce missed billing entries and improve visibility into costs and revenue.",
-        "Designed plain Java and Spring Boot workflows around accountability and transparency for admin, lawyer, and staff operations."
+        "Built the system solo end-to-end — billing, reporting, activity logging, contract tracking, and role-based access control (RBAC).",
+        "Designed a React frontend with a Java Spring Boot backend (built with Maven) on top of Supabase, with workflows around accountability for admin, lawyer, and staff operations.",
+        "Activity and billing tracking reduced missed billing entries and gave admins clearer visibility into costs and revenue."
+      ]
+    },
+    {
+      name: "Satisfaction Meter",
+      summary:
+        "Cloud-deployed satisfaction meter that reads a user's facial emotion in real time and triggers a personalized response — capturing the face, classifying the emotion via AWS Rekognition, then emailing the user a tailored product package through SES.",
+      tech: ["React", "AWS Rekognition", "AWS Lambda", "AWS SES", "AWS Management Console"],
+      repoUrl: "",
+      liveUrl: "https://satisfactionmeter.live/",
+      image: "assets/img/aws.png",
+      status: "Finished / Deployed",
+      highlights: [
+        "Built and deployed a serverless AWS pipeline using Rekognition for emotion detection, Lambda for orchestration, and SES for automated personalized email delivery.",
+        "Designed a React frontend that captures the user's face, sends it through the recognition pipeline, and surfaces results back in real time.",
+        "Shipped end-to-end and deployed live at satisfactionmeter.live as a working demo of the full vision → email flow."
       ]
     },
     {
@@ -109,6 +139,21 @@ window.PORTFOLIO_CONTENT = {
         "Built ordering workflows for real estate photography and documentation requests with details capture for processing and follow-up.",
         "Integrated Aryeo to connect real estate media workflow requirements into the ordering process.",
         "Added assignments, billing/payment flow, and Square subscription support for recurring services and operations."
+      ]
+    },
+    {
+      name: "CM Integrations UK",
+      summary:
+        "WordPress-based website for a UK company selling software licenses, built to present products clearly, capture inquiries, and support license sales through a tailored commerce flow rather than a generic e-commerce setup.",
+      tech: ["WordPress", "PHP", "MySQL", "HTML", "CSS", "Custom Plugins"],
+      repoUrl: "",
+      liveUrl: "https://cmintegrations.co.uk/",
+      image: "assets/img/cmintegrations.png",
+      status: "In Progress",
+      highlights: [
+        "Built on WordPress with custom PHP plugins to handle license-related product flows that off-the-shelf themes and plugins couldn't fully support.",
+        "Designed product, inquiry, and presentation pages tailored to a B2B software-licensing audience.",
+        "Backed by MySQL with HTML/CSS customization to keep the site lightweight and consistent with the company's branding."
       ]
     }
   ],

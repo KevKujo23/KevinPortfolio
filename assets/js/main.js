@@ -363,13 +363,13 @@
     if (!grid) return;
 
     grid.innerHTML = "";
-    var items = Array.isArray(projects) ? projects.slice(0, 3) : [];
+    var items = Array.isArray(projects) ? projects : [];
 
-    items.forEach(function (project) {
+    items.forEach(function (project, index) {
       if (!project || !isNonEmptyString(project.name)) return;
 
       var card = document.createElement("article");
-      card.className = "project-card reveal";
+      card.className = "project-card reveal" + (index === 0 ? " is-featured" : "");
 
       var media = document.createElement("div");
       media.className = "project-media";
@@ -618,10 +618,19 @@
 
     var observer = new IntersectionObserver(
       function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
+        var batch = entries.filter(function (entry) {
+          return entry.isIntersecting;
+        });
+
+        batch.forEach(function (entry, batchIndex) {
+          var target = entry.target;
+          var section = target.closest("section, main") || document.body;
+          var siblings = qsa(".reveal", section);
+          var siblingIndex = siblings.indexOf(target);
+          var orderIndex = siblingIndex >= 0 ? siblingIndex : batchIndex;
+          target.style.setProperty("--reveal-delay", Math.min(orderIndex, 8) * 80 + "ms");
+          target.classList.add("is-visible");
+          observer.unobserve(target);
         });
       },
       {
@@ -770,6 +779,194 @@
     }
   }
 
+  function fineHover() {
+    return window.matchMedia("(pointer: fine)").matches;
+  }
+
+  function motionOk() {
+    return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  function initAuroraCursor() {
+    var cursor = qs(".custom-cursor");
+    if (!cursor) return;
+    if (!fineHover() || !motionOk()) {
+      cursor.style.display = "none";
+      return;
+    }
+
+    var docEl = document.documentElement;
+    var targetX = window.innerWidth / 2;
+    var targetY = window.innerHeight / 2;
+    var currentX = targetX;
+    var currentY = targetY;
+    var rafScheduled = false;
+
+    function tick() {
+      rafScheduled = false;
+      currentX += (targetX - currentX) * 0.22;
+      currentY += (targetY - currentY) * 0.22;
+      docEl.style.setProperty("--cursor-x", currentX + "px");
+      docEl.style.setProperty("--cursor-y", currentY + "px");
+      if (Math.abs(targetX - currentX) > 0.1 || Math.abs(targetY - currentY) > 0.1) {
+        rafScheduled = true;
+        window.requestAnimationFrame(tick);
+      }
+    }
+
+    function schedule() {
+      if (rafScheduled) return;
+      rafScheduled = true;
+      window.requestAnimationFrame(tick);
+    }
+
+    document.addEventListener("mousemove", function (event) {
+      targetX = event.clientX;
+      targetY = event.clientY;
+      schedule();
+    });
+
+    document.addEventListener("mouseleave", function () {
+      cursor.style.opacity = "0";
+    });
+
+    document.addEventListener("mouseenter", function () {
+      cursor.style.opacity = "";
+    });
+
+    var hotSelector = 'a, button, [role="button"], [data-project-image-trigger], .nav-toggle, .skill-chip, .tag';
+    document.addEventListener("mouseover", function (event) {
+      if (event.target && event.target.closest && event.target.closest(hotSelector)) {
+        cursor.classList.add("cursor-hot");
+      }
+    });
+    document.addEventListener("mouseout", function (event) {
+      if (event.target && event.target.closest && event.target.closest(hotSelector)) {
+        cursor.classList.remove("cursor-hot");
+      }
+    });
+  }
+
+  function initMagneticButtons() {
+    if (!fineHover() || !motionOk()) return;
+
+    var targets = qsa(".button, .nav-resume");
+    if (!targets.length) return;
+
+    targets.forEach(function (el) {
+      var rect = null;
+
+      function update(event) {
+        rect = rect || el.getBoundingClientRect();
+        var dx = event.clientX - (rect.left + rect.width / 2);
+        var dy = event.clientY - (rect.top + rect.height / 2);
+        var max = 12;
+        var tx = Math.max(-max, Math.min(max, dx * 0.25));
+        var ty = Math.max(-max, Math.min(max, dy * 0.25));
+        el.style.transform = "translate3d(" + tx + "px," + ty + "px,0)";
+      }
+
+      el.addEventListener("mouseenter", function () {
+        rect = el.getBoundingClientRect();
+      });
+      el.addEventListener("mousemove", update);
+      el.addEventListener("mouseleave", function () {
+        rect = null;
+        el.style.transform = "";
+      });
+    });
+  }
+
+  function initProjectTilt() {
+    if (!fineHover() || !motionOk()) return;
+
+    var cards = qsa(".project-card");
+    if (!cards.length) return;
+
+    cards.forEach(function (card) {
+      var rect = null;
+      var rafScheduled = false;
+      var pendingEvent = null;
+
+      function apply() {
+        rafScheduled = false;
+        if (!pendingEvent || !rect) return;
+        var event = pendingEvent;
+        var px = (event.clientX - rect.left) / rect.width;
+        var py = (event.clientY - rect.top) / rect.height;
+        var maxTilt = 8;
+        var rotY = (px - 0.5) * 2 * maxTilt;
+        var rotX = -(py - 0.5) * 2 * maxTilt;
+        card.style.setProperty("--tilt-x", rotX.toFixed(2) + "deg");
+        card.style.setProperty("--tilt-y", rotY.toFixed(2) + "deg");
+        card.style.setProperty("--mx", (px * 100).toFixed(1) + "%");
+        card.style.setProperty("--my", (py * 100).toFixed(1) + "%");
+      }
+
+      card.addEventListener("mouseenter", function () {
+        rect = card.getBoundingClientRect();
+      });
+      card.addEventListener("mousemove", function (event) {
+        rect = rect || card.getBoundingClientRect();
+        pendingEvent = event;
+        if (!rafScheduled) {
+          rafScheduled = true;
+          window.requestAnimationFrame(apply);
+        }
+      });
+      card.addEventListener("mouseleave", function () {
+        rect = null;
+        pendingEvent = null;
+        card.style.removeProperty("--tilt-x");
+        card.style.removeProperty("--tilt-y");
+        card.style.removeProperty("--mx");
+        card.style.removeProperty("--my");
+      });
+    });
+  }
+
+  function initAuroraDrift() {
+    if (!motionOk()) return;
+    var docEl = document.documentElement;
+    var ticking = false;
+
+    function update() {
+      ticking = false;
+      docEl.style.setProperty("--scroll-y", window.scrollY * 0.05 + "px");
+    }
+
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(update);
+      },
+      { passive: true }
+    );
+  }
+
+  function injectProjectCounter() {
+    var grid = byId("projects-grid");
+    if (!grid) return;
+    var head = qs("#projects .section-head");
+    if (!head) return;
+
+    var existing = qs(".section-counter", head);
+    if (existing) existing.remove();
+
+    var count = grid.querySelectorAll(".project-card").length;
+    if (!count) return;
+
+    var counter = document.createElement("span");
+    counter.className = "section-counter";
+    counter.setAttribute("aria-hidden", "true");
+    var padded = count < 10 ? "0" + count : String(count);
+    counter.textContent = padded + " / projects";
+    head.appendChild(counter);
+    head.setAttribute("data-count", padded);
+  }
+
   function renderEverything() {
     populateStaticFields(content);
     renderHeroName(content.name);
@@ -783,6 +980,12 @@
     setupActiveNav();
     setupRevealAnimations();
     setupProjectImageLightbox();
+
+    injectProjectCounter();
+    initAuroraCursor();
+    initMagneticButtons();
+    initProjectTilt();
+    initAuroraDrift();
 
     setText("hero-availability-pill", content.availabilityPill, "Open to opportunities");
     setText("footer-year", String(new Date().getFullYear()));
