@@ -1,17 +1,18 @@
 window.PORTFOLIO_CONTENT = {
   name: "Kevin Lawrenze Lapuz",
-  title: "Web Developer / Full Stack Developer",
+  title: "Full Stack Developer",
   tagline:
-    "I build client-focused websites and workflow systems using WordPress, PHP, Java, and SQL with strong UI, working backend logic, and business-focused results.",
+    "Full stack developer at Ellington Marketing building fast Astro and WordPress sites — with SEO, end-to-end website development, and deployment on Cloudflare and ServerAvatar.",
   typedRoles: [
+    "Astro and WordPress Development",
+    "SEO and Performance",
+    "Cloudflare and ServerAvatar Deployment",
     "Client-Focused Web Development",
-    "WordPress and WooCommerce",
-    "Java Web Applications",
     "Workflow and Billing Systems",
     "API Integrations"
   ],
   location: "Philippines",
-  focus: "Building client websites and internal workflow tools that improve lead generation, operations, and revenue tracking.",
+  focus: "Building and deploying fast Astro and WordPress sites at Ellington Marketing — covering SEO, full website development, and deployment on Cloudflare and ServerAvatar.",
   availabilityPill: "Part-time / Freelance",
   availabilityNote: "Currently open to part-time freelance web development work for individuals and business clients.",
   email: "kevuchiha23@gmail.com",
@@ -27,6 +28,7 @@ window.PORTFOLIO_CONTENT = {
     "Right now, I am focused on part-time freelance work for individuals and businesses while continuing to grow as a full stack developer through real projects, stronger backend systems, and client-facing delivery."
   ],
   skills: [
+    "Astro",
     "Java",
     "Spring Boot",
     "PHP",
@@ -47,6 +49,8 @@ window.PORTFOLIO_CONTENT = {
     "Square",
     "SEO",
     "Metadata",
+    "Cloudflare",
+    "ServerAvatar",
     "Git",
     "GitHub",
     "Figma"
@@ -58,11 +62,11 @@ window.PORTFOLIO_CONTENT = {
     },
     {
       label: "Frameworks & Backend",
-      items: ["Spring Boot", "WordPress", "WooCommerce", "REST APIs", "PostgreSQL", "MySQL", "Supabase"]
+      items: ["Astro", "Spring Boot", "WordPress", "WooCommerce", "REST APIs", "PostgreSQL", "MySQL", "Supabase"]
     },
     {
       label: "Workflow, Integrations & Delivery",
-      items: ["RBAC", "Reporting", "API Integrations", "Aryeo API", "Square", "SEO", "Git", "GitHub", "AWS", "Figma"]
+      items: ["SEO", "Cloudflare", "ServerAvatar", "RBAC", "Reporting", "API Integrations", "Aryeo API", "Square", "Git", "GitHub", "AWS", "Figma"]
     }
   ],
   projects: [
@@ -158,6 +162,16 @@ window.PORTFOLIO_CONTENT = {
     }
   ],
   experience: [
+    {
+      company: "Ellington Marketing",
+      role: "Full Stack Developer",
+      period: "May 2026 - Present",
+      highlights: [
+        "Build and maintain client websites with Astro and WordPress, handling both frontend and backend across the full stack.",
+        "Own end-to-end website development including on-page SEO and metadata to improve search visibility and performance.",
+        "Handle deployment and server operations using Cloudflare and ServerAvatar for fast, reliable hosting and delivery."
+      ]
+    },
     {
       company: "Delloro Saulog Law Offices",
       role: "IT Intern",

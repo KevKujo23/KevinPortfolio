@@ -509,6 +509,62 @@
     });
   }
 
+  function setupThemeToggle() {
+    var toggle = byId("theme-toggle");
+    if (!toggle) return;
+
+    var root = document.documentElement;
+    var themeColorMeta = qs('meta[name="theme-color"]');
+    var themeColors = { dark: "#07081a", light: "#eef1f8" };
+
+    function currentTheme() {
+      return root.getAttribute("data-theme") === "light" ? "light" : "dark";
+    }
+
+    function applyTheme(theme) {
+      root.setAttribute("data-theme", theme);
+      var isLight = theme === "light";
+      toggle.setAttribute("aria-pressed", String(isLight));
+      toggle.setAttribute("aria-label", isLight ? "Switch to dark theme" : "Switch to light theme");
+      if (themeColorMeta) {
+        themeColorMeta.setAttribute("content", themeColors[theme]);
+      }
+      try {
+        localStorage.setItem("theme", theme);
+      } catch (e) {
+        /* storage unavailable - theme still applies for this session */
+      }
+    }
+
+    // Sync button state with the theme set by the inline head script.
+    applyTheme(currentTheme());
+
+    toggle.addEventListener("click", function () {
+      applyTheme(currentTheme() === "light" ? "dark" : "light");
+    });
+
+    // Follow the OS preference only if the user hasn't chosen explicitly.
+    if (window.matchMedia) {
+      var media = window.matchMedia("(prefers-color-scheme: light)");
+      var onChange = function (event) {
+        var stored;
+        try {
+          stored = localStorage.getItem("theme");
+        } catch (e) {
+          stored = null;
+        }
+        if (stored !== "light" && stored !== "dark") {
+          applyTheme(event.matches ? "light" : "dark");
+        }
+      };
+      if (media.addEventListener) {
+        media.addEventListener("change", onChange);
+      } else if (media.addListener) {
+        media.addListener(onChange);
+      }
+    }
+  }
+
   function setupNav() {
     var toggle = qs("[data-nav-toggle]");
     var navList = qs("[data-nav-list]");
@@ -976,6 +1032,7 @@
     renderProjects(content.projects);
     renderSkills(content);
     renderExperience(content.experience);
+    setupThemeToggle();
     setupNav();
     setupActiveNav();
     setupRevealAnimations();

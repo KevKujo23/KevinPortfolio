@@ -47,6 +47,59 @@
   --cursor-x: 50vw;
   --cursor-y: 50vh;
   --scroll-y: 0px;
+
+  --header-bg: rgba(7, 8, 26, 0.55);
+  --header-bg-mobile: rgba(7, 8, 26, 0.92);
+  --surface-solid: rgba(7, 8, 26, 0.7);
+  --blob-opacity: 0.6;
+  --blob-blend: screen;
+  --grain-opacity: 0.05;
+}
+
+/* ---------- Light theme ---------- */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg-0: #eef1f8;
+  --bg-1: rgba(17, 18, 45, 0.04);
+  --bg-2: rgba(17, 18, 45, 0.06);
+  --bg-3: rgba(17, 18, 45, 0.10);
+
+  --border-glass: rgba(17, 18, 45, 0.12);
+  --border-glass-hot: rgba(17, 18, 45, 0.26);
+
+  --text-primary: #141527;
+  --text-secondary: rgba(20, 21, 39, 0.74);
+  --text-muted: rgba(20, 21, 39, 0.55);
+
+  --glow-cool: 0 0 50px rgba(34, 211, 238, 0.20);
+  --glow-warm: 0 0 50px rgba(236, 72, 153, 0.18);
+  --glow-gold: 0 0 44px rgba(251, 191, 36, 0.20);
+
+  --header-bg: rgba(255, 255, 255, 0.62);
+  --header-bg-mobile: rgba(255, 255, 255, 0.92);
+  --surface-solid: rgba(255, 255, 255, 0.78);
+  --blob-opacity: 0.32;
+  --blob-blend: multiply;
+  --grain-opacity: 0.035;
+}
+
+/* Smooth transition when switching themes */
+html,
+body,
+.site-header,
+.button,
+.skill-chip,
+.tag,
+.project-card,
+.about-panel,
+.profile-card,
+.contact-panel {
+  transition:
+    background-color 350ms ease,
+    border-color 350ms ease,
+    color 350ms ease,
+    box-shadow 350ms ease;
 }
 
 /* ---------- Reset ---------- */
@@ -126,8 +179,8 @@ a {
   max-height: 900px;
   border-radius: 50%;
   filter: blur(120px);
-  mix-blend-mode: screen;
-  opacity: 0.6;
+  mix-blend-mode: var(--blob-blend);
+  opacity: var(--blob-opacity);
   will-change: transform;
 }
 
@@ -156,7 +209,7 @@ a {
   position: absolute;
   inset: 0;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>");
-  opacity: 0.05;
+  opacity: var(--grain-opacity);
   mix-blend-mode: overlay;
   pointer-events: none;
 }
@@ -381,7 +434,7 @@ a {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(7, 8, 26, 0.55);
+  background: var(--header-bg);
   backdrop-filter: blur(20px) saturate(140%);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
   border-bottom: 1px solid var(--border-glass);
@@ -508,6 +561,64 @@ a {
   height: 2px;
   background: var(--text-primary);
   border-radius: var(--radius-pill);
+}
+
+/* ---------- Theme toggle ---------- */
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-glass);
+  background: var(--bg-1);
+  color: var(--text-primary);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition:
+    border-color 200ms ease,
+    background 200ms ease,
+    transform 200ms ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--border-glass-hot);
+  background: var(--bg-2);
+}
+
+.theme-toggle .theme-icon {
+  width: 19px;
+  height: 19px;
+  grid-area: 1 / 1;
+  transition:
+    opacity 240ms ease,
+    transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.theme-toggle .theme-icon-sun {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.4);
+}
+
+.theme-toggle .theme-icon-moon {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+:root[data-theme="light"] .theme-toggle .theme-icon-sun {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+:root[data-theme="light"] .theme-toggle .theme-icon-moon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.4);
+}
+
+.theme-toggle-item {
+  display: flex;
+  align-items: center;
 }
 
 /* ---------- Buttons ---------- */
@@ -1077,7 +1188,7 @@ a {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-primary);
-  background: rgba(7, 8, 26, 0.7);
+  background: var(--surface-solid);
   border: 1px solid var(--border-glass);
   backdrop-filter: blur(10px);
   pointer-events: none;
@@ -1157,8 +1268,8 @@ a {
 
 .project-status.status-private {
   color: var(--text-secondary);
-  border-color: rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--border-glass-hot);
+  background: var(--bg-2);
 }
 
 .tag-row {
@@ -1754,7 +1865,7 @@ body.lightbox-open {
     align-items: stretch;
     padding: 24px;
     gap: 6px;
-    background: rgba(7, 8, 26, 0.92);
+    background: var(--header-bg-mobile);
     backdrop-filter: blur(24px) saturate(140%);
     -webkit-backdrop-filter: blur(24px) saturate(140%);
     border-bottom: 1px solid var(--border-glass);
