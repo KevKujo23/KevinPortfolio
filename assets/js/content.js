@@ -20,8 +20,8 @@ window.PORTFOLIO_CONTENT = {
   links: {
     github: "https://github.com/KevKujo23",
     linkedin: "https://www.linkedin.com/in/kevinlapuz/",
-    resume: "assets/docs/Lapuz_Kevin_Resume_2026.pdf",
-    cv: "assets/docs/Lapuz_Kevin_CV_2026.pdf"
+    resume: "https://docs.google.com/document/d/1B9U2VmBDd5duKcpegrdEV4d3lmoZfkhP/edit?usp=sharing",
+    cv: "https://docs.google.com/document/d/10nD2kGPrhX16KtM25mn7DtsvgaG_6ds-/edit?usp=sharing"
   },
   about: [
     "I am a BS Information Technology student and web developer with around 2 years of experience building client websites, API-connected workflows, and business-focused web tools. I work across frontend and backend tasks, with a focus on shipping practical solutions that are usable and reliable.",
@@ -195,4 +195,6 @@ window.PORTFOLIO_CONTENT = {
     }
   ],
   certifications: []
+};
+
 };
