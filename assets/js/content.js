@@ -196,5 +196,3 @@ window.PORTFOLIO_CONTENT = {
   ],
   certifications: []
 };
-
-};
