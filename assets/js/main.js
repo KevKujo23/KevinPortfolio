@@ -796,7 +796,7 @@
     setHref("nav-resume-link", links.resume);
     setHref("hero-github-link", links.github);
     setHref("hero-linkedin-link", links.linkedin);
-    setHref("hero-resume-link", links.resume);
+    setHref("hero-resume-link", links.cv);
     setHref("contact-github-link", links.github);
     setHref("contact-linkedin-link", links.linkedin);
     setHref("contact-resume-link", links.resume);
