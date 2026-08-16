@@ -258,6 +258,18 @@
         if (willOpen && article) {
           registerProjectOpen(article.getAttribute("data-project-index"));
         }
+
+        // The revealed detail content sits below this button, so on a tall
+        // card the expansion can land entirely below the fold and look like
+        // the click did nothing. Bring the button (and whatever just opened
+        // above it) into view once the box has finished resizing.
+        var reduceMotion = prefersReducedMotion();
+        window.setTimeout(
+          function () {
+            btn.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest" });
+          },
+          willOpen && !reduceMotion ? 360 : 0
+        );
       });
     });
   }
